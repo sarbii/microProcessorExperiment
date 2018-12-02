@@ -20,7 +20,10 @@ int min=0;
 int min10=0;
 int hour=0;
 int hour10=0;
-int year ,month , leapyear, maxday, day;
+int year=2018;
+int month=12;
+int maxday;
+int day=1;
 
 void interrupt isr()
 {
@@ -147,8 +150,10 @@ void main()
 		}
 		
 		if(day>maxday){
+			day=1;
 			month++;
 			if(month>12){
+				month=1;
 				year++;
 			}
 		}
