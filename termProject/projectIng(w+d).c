@@ -27,91 +27,92 @@ int day=1;
 
 void interrupt isr()
 {
-	if(TMR0IE && TMR0IF )
-	{	
-		if(RA0==0){
-		cnt++;
-		if(cnt%4 == 3)
-		{
-			RB0 = 0;
-			RB2 = 0;
-			RB3= 0;
-			PORTC = conv[sec10];
-			RB1 = 1;
+	if (TMR0IE && TMR0IF)
+	{
+		if (RA0 == 0) {
+			cnt++;
+			if (cnt % 4 == 3)
+			{
+				RB1 = 0;
+				RA2 = 0;
+				RA3 = 0;
+				PORTC = conv[sec10];
+				RB2 = 1;
+			}
+			else if (cnt % 4 == 2)
+			{
+				RB2 = 0;
+				RA2 = 0;
+				RA3 = 0;
+				PORTC = conv[sec];
+				RB1 = 1;
+				int_cnt++;
+			}
+			else if (cnt % 4 == 1)
+			{
+				RB2 = 0;
+				RB1 = 0;
+				RA3 = 0;
+				PORTC = conv[min];
+				RA2 = 1;
+
+			}
+			else
+			{
+				RB2 = 0;
+				RB1 = 0;
+				RA2 = 0;
+				PORTC = conv[min10];
+				RA3 = 1;
+				int_cnt++;
+			}
+
+			TMR0IF = 0;
 		}
-		else if(cnt%4 == 2)
-		{
-			RB1 = 0;
-			RB2 = 0;
-			RB3= 0;
-			PORTC = conv[sec];
-			RB0 = 1;
-			int_cnt++;
+
+		else {
+			cnt++;
+			if (cnt % 4 == 3)
+			{
+				RB1 = 0;
+				RA2 = 0;
+				RA3 = 0;
+				PORTC = conv[min10];
+				RB2 = 1;
+			}
+			else if (cnt % 4 == 2)
+			{
+				RB2 = 0;
+				RA2 = 0;
+				RA3 = 0;
+				PORTC = conv[min];
+				RB1 = 1;
+				int_cnt++;
+			}
+			else if (cnt % 4 == 1)
+			{
+				RB2 = 0;
+				RB1 = 0;
+				RA3 = 0;
+				PORTC = conv[hour];
+				RA2 = 1;
+
+			}
+			else
+			{
+				RB2 = 0;
+				RB1 = 0;
+				RA2 = 0;
+				PORTC = conv[hour10];
+				RA3 = 1;
+				int_cnt++;
+			}
+
+			TMR0IF = 0;
 		}
-		else if(cnt%4 == 1)
-		{
-			RB1 = 0;
-			RB0 = 0;
-			RB3= 0;
-			PORTC = conv[min];
-			RB2 = 1;
-			
-		}
-		else
-		{
-			RB1 = 0;
-			RB0 = 0;
-			RB2= 0;
-			PORTC = conv[min10];
-			RB3 = 1;
-			int_cnt++;
-		}
-		
-		TMR0IF = 0;
-		}
-		
-		else{
-		cnt++;
-		if(cnt%4 == 3)
-		{
-			RB0 = 0;
-			RB2 = 0;
-			RB3= 0;
-			PORTC = conv[min10];
-			RB1 = 1;
-		}
-		else if(cnt%4 == 2)
-		{
-			RB1 = 0;
-			RB2 = 0;
-			RB3= 0;
-			PORTC = conv[min];
-			RB0 = 1;
-			int_cnt++;
-		}
-		else if(cnt%4 == 1)
-		{
-			RB1 = 0;
-			RB0 = 0;
-			RB3= 0;
-			PORTC = conv[hour];
-			RB2 = 1;
-			
-		}
-		else
-		{
-			RB1 = 0;
-			RB0 = 0;
-			RB2= 0;
-			PORTC = conv[hour10];
-			RB3 = 1;
-			int_cnt++;
-		}
-		
-		TMR0IF = 0;
-		}
-	}	
+	}
 }
+
 	
 
 
