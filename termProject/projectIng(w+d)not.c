@@ -9,12 +9,12 @@ void init()
 	TMR0IE = 1;
 	OPTION_REG = 0b10000010;	
 }
-
+int RB3_cnt = 0;
 int cnt = 0;
 int int_cnt = 0;
 int sec = 0;
 int sec10 =0;
-const unsigned char conv[10]= {0x03, 0x9F, 0x25, 0x0D, 0x99, 0x49, 0x41, 0x1B, 0x01, 0x09};
+const unsigned char conv[10]= { 0xFC, 0x60, 0xDA, 0xF2, 0x66, 0xB6, 0xBE, 0xE4, 0xFE, 0xF6 };
 int min=0;
 int min10=0;
 int hour=0;
@@ -28,41 +28,44 @@ void interrupt isr()
 {
 	if (TMR0IE && TMR0IF)
 	{
-		if (RB3 == 0) {
+		
+	
+	
+		if (RB3== 0) {
 			cnt++;
 			if (cnt % 4 == 3)
 			{
-				RB1 = 0;
-				RA2 = 0;
-				RA3 = 0;
+				RB1 = 1;
+				RA2 = 1;
+				RA3 = 1;
 				PORTC = conv[sec10];
-				RB2 = 1;
+				RB2 = 0;
 			}
 			else if (cnt % 4 == 2)
 			{
-				RB2 = 0;
-				RA2 = 0;
-				RA3 = 0;
+				RB2 = 1;
+				RA2 = 1;
+				RA3 = 1;
 				PORTC = conv[sec];
-				RB1 = 1;
+				RB1 = 0;
 				int_cnt++;
 			}
 			else if (cnt % 4 == 1)
 			{
-				RB2 = 0;
-				RB1 = 0;
-				RA3 = 0;
+				RB2 = 1;
+				RB1 = 1;
+				RA3 = 1;
 				PORTC = conv[min];
-				RA2 = 1;
+				RA2 = 0;
 
 			}
 			else
 			{
-				RB2 = 0;
-				RB1 = 0;
-				RA2 = 0;
+				RB2 = 1;
+				RB1 = 1;
+				RA2 = 1;
 				PORTC = conv[min10];
-				RA3 = 1;
+				RA3 = 0;
 				int_cnt++;
 			}
 
@@ -73,37 +76,37 @@ void interrupt isr()
 			cnt++;
 			if (cnt % 4 == 3)
 			{
-				RB1 = 0;
-				RA2 = 0;
-				RA3 = 0;
+				RB1 = 1;
+				RA2 = 1;
+				RA3 = 1;
 				PORTC = conv[min10];
-				RB2 = 1;
+				RB2 = 0;
 			}
 			else if (cnt % 4 == 2)
 			{
-				RB2 = 0;
-				RA2 = 0;
-				RA3 = 0;
+				RB2 = 1;
+				RA2 = 1;
+				RA3 = 1;
 				PORTC = conv[min];
-				RB1 = 1;
+				RB1 = 0;
 				int_cnt++;
 			}
 			else if (cnt % 4 == 1)
 			{
-				RB2 = 0;
-				RB1 = 0;
-				RA3 = 0;
+				RB2 = 1;
+				RB1 = 1;
+				RA3 = 1;
 				PORTC = conv[hour];
-				RA2 = 1;
+				RA2 = 0;
 
 			}
 			else
 			{
-				RB2 = 0;
-				RB1 = 0;
-				RA2 = 0;
+				RB2 = 1;
+				RB1 = 1;
+				RA2 = 1;
 				PORTC = conv[hour10];
-				RA3 = 1;
+				RA3 = 0;
 				int_cnt++;
 			}
 
@@ -123,6 +126,10 @@ void main()
 	
 	while(1)
 	{
+		
+
+		
+
 
 		switch(month){
 			case1:
